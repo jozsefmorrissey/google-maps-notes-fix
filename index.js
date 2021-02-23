@@ -127,13 +127,12 @@ const properties = new Properties();
 
 console.log('here i am')
 
+function powerOn() {
+  return properties.get('powerOff') !== true;
+}
 
-function betterStyling() {
-  if (properties.get('powerOff') === true) return;
-  const inputSelector = 'input.widget-print-notes.widget-print-notes-secondary';
-  const inputs = document.querySelectorAll(inputSelector);
-  for (let index = 0; index < inputs.length; index += 1) {
-    const note = inputs[index];
+function betterStyling(note, power) {
+  if (power) {
     if (properties.get('alertMode') === true) {
       note.style.color = 'red';
     } else {
@@ -144,23 +143,26 @@ function betterStyling() {
     } else {
       note.style.fontWeight = '';
     }
+  } else {
+    note.style.fontWeight = '';
+    note.style.color = '';
   }
 }
 
 const emptyClass = 'widget-print-notes-empty';
 function removeEmptyNoteFlag() {
-  setTimeout(removeEmptyNoteFlag, 3000);
-  if (properties.get('powerOff') === true) return;
   const inputSelector = 'input.widget-print-notes.widget-print-notes-secondary';
   const inputs = document.querySelectorAll(inputSelector);
+  const power = powerOn();
   for (let index = 0; index < inputs.length; index += 1) {
     const note = inputs[index];
     note.className = note.className.replace(emptyClass, '').trim();
-    if (note.value === '') note.className = note.className + ' ' + emptyClass;
+    if (!power || note.value === '') note.className = note.className + ' ' + emptyClass;
+    betterStyling(note, power);
   }
-  if (inputs.length > 0) betterStyling();
+  setTimeout(removeEmptyNoteFlag, 3000);
 }
 
 setTimeout(removeEmptyNoteFlag, 3000);
 
-properties.onUpdate(['powerOff', 'alertMode', 'boldMode'], betterStyling);
+properties.onUpdate(['powerOff', 'alertMode', 'boldMode'], removeEmptyNoteFlag);
