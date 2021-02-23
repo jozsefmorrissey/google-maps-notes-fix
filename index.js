@@ -147,6 +147,7 @@ function betterStyling() {
   }
 }
 
+const emptyClass = 'widget-print-notes-empty';
 function removeEmptyNoteFlag() {
   setTimeout(removeEmptyNoteFlag, 3000);
   if (properties.get('powerOff') === true) return;
@@ -154,7 +155,8 @@ function removeEmptyNoteFlag() {
   const inputs = document.querySelectorAll(inputSelector);
   for (let index = 0; index < inputs.length; index += 1) {
     const note = inputs[index];
-    note.className = note.className.replace('widget-print-notes-empty', '').trim();
+    note.className = note.className.replace(emptyClass, '').trim();
+    if (note.value === '') note.className = note.className + ' ' + emptyClass;
   }
   if (inputs.length > 0) betterStyling();
 }

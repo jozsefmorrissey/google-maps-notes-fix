@@ -1,0 +1,12 @@
+
+menu {
+  display: grid;
+  width: fit-content;
+  padding: 2pt;
+  margin: 0;
+}
+
+menuitem:hover {
+  cursor: pointer;
+  background-color: #80808078;
+}
