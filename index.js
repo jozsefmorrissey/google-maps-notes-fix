@@ -129,35 +129,34 @@ console.log('here i am')
 
 
 function betterStyling() {
-    if (properties.get('powerOff') === false) {
-    const inputSelector = 'input.widget-print-notes.widget-print-notes-secondary';
-    const inputs = document.querySelectorAll(inputSelector);
-    for (let index = 0; index < inputs.length; index += 1) {
-      const note = inputs[index];
-      if (properties.get('alertMode') === true) {
-        note.style.color = 'red';
-      } else {
-        note.style.color = '';
-      }
-      if (properties.get('boldMode') === true) {
-        note.style.fontWeight = 'bolder';
-      } else {
-        note.style.fontWeight = '';
-      }
+  if (properties.get('powerOff') === true) return;
+  const inputSelector = 'input.widget-print-notes.widget-print-notes-secondary';
+  const inputs = document.querySelectorAll(inputSelector);
+  for (let index = 0; index < inputs.length; index += 1) {
+    const note = inputs[index];
+    if (properties.get('alertMode') === true) {
+      note.style.color = 'red';
+    } else {
+      note.style.color = '';
+    }
+    if (properties.get('boldMode') === true) {
+      note.style.fontWeight = 'bolder';
+    } else {
+      note.style.fontWeight = '';
     }
   }
 }
 
 function removeEmptyNoteFlag() {
-  if (properties.get('powerOff') === false) {
-    const inputSelector = 'input.widget-print-notes.widget-print-notes-secondary';
-    const inputs = document.querySelectorAll(inputSelector);
-    for (let index = 0; index < inputs.length; index += 1) {
-      const note = inputs[index];
-      note.className = note.className.replace('widget-print-notes-empty', '').trim();
-    }
-  }
   setTimeout(removeEmptyNoteFlag, 3000);
+  if (properties.get('powerOff') === true) return;
+  const inputSelector = 'input.widget-print-notes.widget-print-notes-secondary';
+  const inputs = document.querySelectorAll(inputSelector);
+  for (let index = 0; index < inputs.length; index += 1) {
+    const note = inputs[index];
+    note.className = note.className.replace('widget-print-notes-empty', '').trim();
+  }
+  if (inputs.length > 0) betterStyling();
 }
 
 setTimeout(removeEmptyNoteFlag, 3000);
