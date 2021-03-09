@@ -20,7 +20,7 @@
 
   "content_scripts": [
     {
-      "matches": ["*://www.google.com/maps/dir/*"],
+      "matches": ["*://www.google.com/maps/*"],
       "js": ["./index.js"],
       "css": ["./index.css"]
     }
